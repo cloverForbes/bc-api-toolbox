@@ -1,0 +1,22 @@
+{
+  "name": "bc-api-toolbox",
+  "version": "0.0.1",
+  "description": "Toolbox to help build apps with the BigCommerce API",
+  "main": "toolbox.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bigcommerce",
+    "BC",
+    "api",
+    "toolbox",
+    "Big",
+    "Commerce"
+  ],
+  "author": "the-transgineer",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.83.0"
+  }
+}

@@ -89,6 +89,26 @@ class Toolbox{
             callback(JSON.parse(data));
         })
     }
+
+    getProductImageUrls(id, callback){
+        this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v3/catalog/products/${id}/images`;
+        let urlArr = [];
+        request.get(this.options, (err,res,body) => {
+            const data = JSON.parse(body).data;
+            const total = JSON.parse(body).meta.pagination.total;
+            if(total > 0){
+                data.forEach((image, index) => {
+                    urlArr.push(image.url_zoom);
+                    if(index === total - 1){
+                        callback(urlArr);
+                    }
+                })
+            }
+            else {
+                callback(urlArr);
+            }
+        })
+    }
 }
 
 

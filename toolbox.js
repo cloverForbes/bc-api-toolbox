@@ -57,6 +57,14 @@ class Toolbox{
             }
         })
     }
+
+    getTotalOrders(callback){
+        this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v2/orders`;
+        request.get(this.options, (err,res,body) => {
+            const data = body;
+            callback(JSON.parse(data).length);
+        })
+    }
 }
 
 

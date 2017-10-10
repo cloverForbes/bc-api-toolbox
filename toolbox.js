@@ -39,6 +39,24 @@ class Toolbox{
             }
         })
     }
+
+    getAllProducts(callback){
+        this.getTotalNumber(number => {
+            let products = [];
+            for(let x=0;x<=number/50;x++){
+                this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v3/catalog/products?page=${x+1}&limit=50`;
+                request.get(this.options, (err,res,body) => {
+                    const data = JSON.parse(body).data;
+                    data.forEach(item  => {
+                        products.push(item);
+                    });
+                    if(products.length === number){
+                        callback(products);
+                    }
+                })
+            }
+        })
+    }
 }
 
 

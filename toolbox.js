@@ -1,4 +1,4 @@
-const request = require('request-promise');
+const request = require('request');
 
 class Toolbox{
     constructor(key,id,hash){
@@ -94,18 +94,28 @@ class Toolbox{
         this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v3/catalog/products/${id}/images`;
         let urlArr = [];
         request.get(this.options, (err,res,body) => {
-            const data = JSON.parse(body).data;
-            const total = JSON.parse(body).meta.pagination.total;
-            if(total > 0){
-                data.forEach((image, index) => {
-                    urlArr.push(image.url_zoom);
-                    if(index === total - 1){
-                        callback(urlArr);
-                    }
-                })
+            if(res.statusCode === 429){
+                setTimeout(() => {
+                    this.getProductImageUrls(id, blah => {
+                        callback(blah);
+                    })
+
+                }, Number(res.headers['x-rate-limit-time-reset-ms']))
             }
             else {
-                callback(urlArr);
+                const data = JSON.parse(body).data;
+                const total = JSON.parse(body).meta.pagination.total;
+                if (total > 0) {
+                    data.forEach((image, index) => {
+                        urlArr.push(image.url_zoom);
+                        if (index === total - 1) {
+                            callback(urlArr);
+                        }
+                    })
+                }
+                else {
+                    callback(urlArr);
+                }
             }
         })
     }
@@ -114,3 +124,4 @@ class Toolbox{
 
 
 module.exports = Toolbox;
+

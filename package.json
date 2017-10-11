@@ -1,6 +1,6 @@
 {
   "name": "bc-api-toolbox",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Toolbox to help build apps with the BigCommerce API",
   "main": "toolbox.js",
   "scripts": {
@@ -17,6 +17,7 @@
   "author": "the-transgineer",
   "license": "ISC",
   "dependencies": {
+    "node-request-retry": "^1.0.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
   }

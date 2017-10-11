@@ -17,6 +17,14 @@ class Toolbox{
     getTotalNumber(callback){
         this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v3/catalog/products`;
         request.get(this.options, (err,res,body) => {
+            if(res.statusCode === 429){
+                setTimeout(() => {
+                    this.getTotalNumber(backup => {
+                        callback(backup);
+                    })
+
+                }, Number(res.headers['x-rate-limit-time-reset-ms']))
+            }
             const data = body;
             callback(JSON.parse(data).meta.pagination.total);
         })
@@ -28,6 +36,14 @@ class Toolbox{
             for(let x=0;x<=number/50;x++){
                 this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v3/catalog/products?page=${x+1}&limit=50`;
                 request.get(this.options, (err,res,body) => {
+                    if(res.statusCode === 429){
+                        setTimeout(() => {
+                            this.getProductIds(backup => {
+                                callback(backup);
+                            })
+
+                        }, Number(res.headers['x-rate-limit-time-reset-ms']))
+                    }
                     const data = JSON.parse(body).data;
                     data.forEach(item  => {
                         ids.push(item.id);
@@ -46,6 +62,13 @@ class Toolbox{
             for(let x=0;x<=number/50;x++){
                 this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v3/catalog/products?page=${x+1}&limit=50`;
                 request.get(this.options, (err,res,body) => {
+                    if(res.statusCode === 429){
+                        setTimeout(() => {
+                            this.getAllProducts(backup => {
+                                callback(backup);
+                            })
+
+                        }, Number(res.headers['x-rate-limit-time-reset-ms']))}
                     const data = JSON.parse(body).data;
                     data.forEach(item  => {
                         products.push(item);
@@ -61,6 +84,14 @@ class Toolbox{
     getTotalOrders(callback){
         this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v2/orders`;
         request.get(this.options, (err,res,body) => {
+            if(res.statusCode === 429){
+                setTimeout(() => {
+                    this.getTotalOrders(backup => {
+                        callback(backup);
+                    })
+
+                }, Number(res.headers['x-rate-limit-time-reset-ms']))
+            }
             const data = body;
             callback(JSON.parse(data).length);
         })
@@ -69,6 +100,14 @@ class Toolbox{
     getAllOrders(callback){
         this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v2/orders`;
         request.get(this.options, (err,res,body) => {
+            if(res.statusCode === 429){
+                setTimeout(() => {
+                    this.getAllOrders(backup => {
+                        callback(backup);
+                    })
+
+                }, Number(res.headers['x-rate-limit-time-reset-ms']))
+            }
             const data = body;
             callback(JSON.parse(data));
         })
@@ -77,6 +116,14 @@ class Toolbox{
     getTotalCustomers(callback){
         this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v2/customers`;
         request.get(this.options, (err,res,body) => {
+            if(res.statusCode === 429) {
+                setTimeout(() => {
+                    this.getTotalCustomers(backup => {
+                        callback(backup);
+                    })
+
+                }, Number(res.headers['x-rate-limit-time-reset-ms']))
+            }
             const data = body;
             callback(JSON.parse(data).length);
         })
@@ -85,6 +132,14 @@ class Toolbox{
     getAllCustomers(callback){
         this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v2/customers`;
         request.get(this.options, (err,res,body) => {
+            if(res.statusCode === 429){
+                setTimeout(() => {
+                    this.getAllCustomers(backup => {
+                        callback(backup);
+                    })
+
+                }, Number(res.headers['x-rate-limit-time-reset-ms']))
+            }
             const data = body;
             callback(JSON.parse(data));
         })
@@ -96,8 +151,8 @@ class Toolbox{
         request.get(this.options, (err,res,body) => {
             if(res.statusCode === 429){
                 setTimeout(() => {
-                    this.getProductImageUrls(id, blah => {
-                        callback(blah);
+                    this.getProductImageUrls(id, backup => {
+                        callback(backup);
                     })
 
                 }, Number(res.headers['x-rate-limit-time-reset-ms']))

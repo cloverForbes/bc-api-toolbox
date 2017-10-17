@@ -43,12 +43,76 @@ responding to 429 Responses.
 
 ##API Reference
 
-####`.getTotalNumber(callback)`
+####.getTotalNumber(callback)
+#####Arguments[function(number)]
+```
+myStore.getTotalNumber(numProducts => {
+  console.log(numProducts);
+});
+```
 ####`.getProductIds(callback)`
+#####Arguments[function(array)]
+```
+myStore.getProductIds(ids => {
+  ids.forEach(id => {
+    console.log(id);
+  });
+});
+```
 ####`.getAllProducts(callback)`
+#####Arguments[function(array)]
+```
+myStore.getAllProducts(products => {
+  products.forEach(product => {
+    console.log(product);
+  });
+});
+```
 ####`.getTotalOrders(callback)`
+#####Arguments[function(number)]
+```
+myStore.getTotalOrders(numOrders => {
+  console.log(numOrders);
+});
+```
 ####`.getAllOrders(callback)`
+#####Arguments[function(array)]
+```
+myStore.getAllOrders(orders => {
+  orders.forEach(order => {
+    console.log(order);
+  });
+});
+```
 ####`.getTotalCustomers(callback)`
+#####Arguments[function(number)]
+```
+myStore.getTotalCustomers(numCustomers => {
+  console.log(numCustomers);
+});
+```
 ####`.getAllCustomers(callback)`
+#####Arguments[function(array)]
+```
+myStore.getAllCustomers(customers => {
+  customers.forEach(customer => {
+    console.log(customer);
+  });
+});
+```
 ####`.getProductImageUrls(id, callback)`
+#####Arguments[productID, function(array)]
+```
+myStore.getProductImageUrls(24151, urls => {
+  urls.forEach(url => {
+    console.log(url);
+  });
+});
+```
 ####`.getAdminEmail(callback)`
+#####Arguments[function(string)]
+```
+myStore.getAdminEmail(email => {
+  console.log(email);
+});
+```

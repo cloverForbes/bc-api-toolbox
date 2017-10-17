@@ -1,6 +1,6 @@
 {
   "name": "bc-api-toolbox",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Toolbox to help build apps with the BigCommerce API",
   "main": "toolbox.js",
   "scripts": {

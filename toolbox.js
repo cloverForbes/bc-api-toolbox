@@ -212,6 +212,16 @@ class Toolbox{
         }
     }
 
+    getCategories(callback){
+        this.checkRequests(() => {
+            this.options.url = `https://api.bigcommerce.com/stores/${this.hash}/v3/catalog/categories`
+            request.get(this.options, (err,res, body)=> {
+                const data = JSON.parse((body));
+                callback(data);
+            })
+        })
+    }
+
 }
 
 
